@@ -43,6 +43,7 @@ export default {
   methods: {
     clickActive(index) {
       this.currentIndex = index;
+      this.$emit('click-tab', index);
     },
   },
   components: {},
@@ -54,6 +55,8 @@ export default {
 .tab-controll {
   display: flex;
   width: 100%;
+  height: calc(40em / 16);
+  line-height: calc(40em / 16);
   background: #fff;
   text-align: center;
   .tab-controll-text {

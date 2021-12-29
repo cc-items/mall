@@ -4,17 +4,23 @@ axios.defaults.baseURL = process.env.VUE_APP_URL;
 axios.defaults.timeout = 50000;
 
 // 请求拦截
-axios.interceptors.request.use(config => {
-  return config;
-}, error => {
-  return Promise.reject(error)
-})
+axios.interceptors.request.use(
+  (config) => {
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 // 响应拦截被then或catch之前拦截
-axios.interceptors.response.use(response => {
-  return response
-}, error => {
-  return Promise.reject(error)
-})
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 // jsDoc可以根据注释生成API of Document;
 /**
  * 封装get方法
@@ -26,9 +32,10 @@ axios.interceptors.response.use(response => {
 export function get(url, params = {}) {
   return axios
     .get(url, {
-      params: params,
+      params,
     })
     .then((res) => res.data)
+    .catch(err => err);
 }
 /** 封装post方法
  * @param url
@@ -40,10 +47,10 @@ export function post(url, data = {}) {
     axios
       .post(url, data)
       .then((res) => {
-        resolve(res.data)
+        resolve(res.data);
       })
       .catch((err) => {
-        reject(err)
+        reject(err);
       });
   });
 }
@@ -58,7 +65,7 @@ export function postFile(url, data = {}) {
   form.append("file", data);
   let config = {
     headers: {
-      ContentType: 'multipart/form-data',
+      ContentType: "multipart/form-data",
     },
   };
   return new Promise((resolve, reject) => {
@@ -79,9 +86,7 @@ export function postFile(url, data = {}) {
  */
 
 export function delet(url, data = {}) {
-  return axios
-    .delete(url,data)
-    .then((res) => res.data);
+  return axios.delete(url, data).then((res) => res.data);
 }
 
 /** 封装put方法
@@ -92,15 +97,16 @@ export function delet(url, data = {}) {
 
 export function put(url, data = {}) {
   return axios.put(url, data)
-    .then(res => res.data)
+    .then((res) => res.data)
+    .catch(err => err);
 }
 
 //创建axios实例
 
-export const instance= axios.create({
+export const instance = axios.create({
   baseURL: process.env.VUE_APP_URL,
   timeout: 50000,
   headers: {
-    'Content-Type': 'multipart/form-data'
-  }
-})
+    "Content-Type": "multipart/form-data",
+  },
+});
