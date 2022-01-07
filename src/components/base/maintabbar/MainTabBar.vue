@@ -8,6 +8,7 @@
         <img src="~assets/img/tabbar/active-index.svg" alt="active of index" />
       </template>
       <template v-slot:item-text>
+
         <span>首页</span>
       </template>
     </TabBarItem>

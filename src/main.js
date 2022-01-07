@@ -9,7 +9,7 @@ Vue.config.productionTip = false
 Vue.prototype.$get = get
 Vue.prototype.$post = post
 Vue.prototype.$instance = instance
-
+Vue.prototype.$bus = new Vue()
 new Vue({
   router,
   store,

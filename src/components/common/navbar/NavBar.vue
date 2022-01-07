@@ -20,23 +20,27 @@ export default {
   },
   computed: {},
   methods: {},
-  components: {}
+  components: {},
 };
 </script>
 <style scoped lang="scss">
-  .nav-bar {
-    display: flex;
-    width: 100%;
-    height: calc(44rem / 16);
-    line-height: calc(44rem / 16);
-    box-shadow: 0 2px 2px rgba(100, 100, 100,0.1);
+.nav-bar {
+  display: flex;
+  width: 100%;
+  height: 44px / 16;
+  line-height: calc(44rem / 16);
+  box-shadow: 0 2px 2px rgba(100, 100, 100, 0.1);
 
-
-    .center {
-      flex: 1;
-      display: flex;
-      justify-content: space-around;
-      text-align: center;
-    }
+  .left {
+    width: calc(44rem / 16);
   }
+
+  .center {
+    flex: 1;
+  }
+  .right {
+    width: calc(44rem / 16);
+    text-align: center;
+  }
+}
 </style>
