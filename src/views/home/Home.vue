@@ -43,7 +43,7 @@
       </div>
     </scroll>
 
-    <back-top @click="clickBack" ref="back" v-show="isShow"></back-top>
+    <back-top @click="clickBackTop" ref="back" v-show="isShowBackTop"></back-top>
   </div>
 </template>
 
@@ -56,7 +56,7 @@ import FeatureView from "./homeChildren/FeatureView.vue";
 import GoodsList from "components/base/goods/GoodsList.vue";
 import Scroll from "components/common/scroll/Scroll.vue";
 import BackTop from "components/base/backTop/BackTop.vue";
-import {imageLoadMixin} from 'common/mixins.js'
+import {imageLoadMixin,backTopMixin} from 'common/mixins.js'
 export default {
   name: "index",
   props: {},
@@ -70,7 +70,6 @@ export default {
         sell: { page: 1, list: [] },
       },
       currentType: "pop",
-      isShow: false,
       refresh: null,
       tabControll: 0,
       isShowTabControll: false,
@@ -101,7 +100,7 @@ export default {
     // 取消自定义事件.
     // this.$off("loadImage", this.loadImage);
   },
-  mixins: [imageLoadMixin],
+  mixins: [imageLoadMixin,backTopMixin],
   methods: {
     getHomeMultidata() {
       this.$get("/home/multidata").then((res) => {
@@ -135,13 +134,9 @@ export default {
       this.$refs.tabControllOne.currentIndex = e;
       this.$refs.tabControlltwo.currentIndex = e;
     },
-    clickBack() {
-      //可以访问子组件的属性(data)和方法(函数);
-      this.$refs.scroll.scrollTo(0, 0);
-    },
     scrollPosition(position) {
-      this.isShow = -position.y > 500;
       this.isShowTabControll = -position.y > this.tabControll;
+      this.showBackTop(position)
     },
     pullUpLoad() {
       this.getHomeGoods(this.currentType);

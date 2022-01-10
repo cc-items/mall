@@ -1,15 +1,20 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
+import mutations from './mutations'
+import actions from './actions'
+import cart from './modules/cart'
+import getters from './getters'
 
-Vue.use(Vuex)
-
+Vue.use(Vuex);
+const state =  {
+  cartList: [],
+}
 export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+  state,
+  getters,
+  mutations,
+  actions,
   modules: {
-  }
-})
+    cart
+  },
+});

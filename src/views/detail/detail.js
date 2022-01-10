@@ -18,6 +18,8 @@ export class Goods {
     this.oldPrice = goodsInfo.oldPrice
     this.discountPrice = goodsInfo.discountDesc
     this.discountBgColor = goodsInfo.discountBgColor
+    this.desc = goodsInfo.desc
+    this.realPrice = goodsInfo.lowNowPrice
     this.services = shopInfo.services
   }
 }

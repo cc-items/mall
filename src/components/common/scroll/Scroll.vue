@@ -49,7 +49,9 @@ export default {
   },
   methods: {
     scrollTo(x, y, time = 1000) {
-      this.betterScroll && this.betterScroll.scrollTo &&this.betterScroll.scrollTo(x, y, time);
+      this.betterScroll &&
+        this.betterScroll.scrollTo &&
+        this.betterScroll.scrollTo(x, y, time);
     },
     finishPullUp() {
       this.betterScroll.finishPullUp();

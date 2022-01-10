@@ -37,6 +37,7 @@ export default {
 
   .center {
     flex: 1;
+    text-align: center;
   }
   .right {
     width: calc(44rem / 16);

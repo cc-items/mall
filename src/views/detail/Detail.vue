@@ -31,7 +31,8 @@
         ref="recommend"
       ></goods-list>
     </scroll>
-    <detail-bottom-bar></detail-bottom-bar>
+    <detail-bottom-bar @add-to-cart= "addToCart"></detail-bottom-bar>
+    <back-top @click="clickBackTop" v-show="isShowBackTop"></back-top>
   </div>
 </template>
 
@@ -47,9 +48,10 @@ import DetailImage from "./children/DetailImage.vue";
 import GoodsParams from "./children/GoodsPatams";
 import DetailCommentInfo from "./children/DetailCommentInfo.vue";
 import GoodsList from "components/base/goods/GoodsList.vue";
-import { imageLoadMixin } from "common/mixins.js";
+import { imageLoadMixin, backTopMixin } from "common/mixins.js";
 import debounce from "common/units/debounce.js";
-import DetailBottomBar from './children/DetailBottomBar.vue'
+import DetailBottomBar from "./children/DetailBottomBar.vue";
+import {mapActions } from 'vuex'
 export default {
   name: "detail",
   props: {
@@ -79,9 +81,13 @@ export default {
     this.getRecomend();
     this.topValue = debounce(this.getNavTop, 400);
   },
-  mounted() {},
-  updated() {
+  mounted() {
+    // 所有的组件挂载完成后
     this.$nextTick(() => {});
+  },
+  updated() {
+    // 所有的dom更新完后.
+    this.$nextTick(() => {})
   },
   computed: {},
   methods: {
@@ -145,9 +151,29 @@ export default {
           this.$refs.nav.currentIndex = x;
         }
       }
+      this.showBackTop(position);
     },
+    ...mapActions(['addCart']),
+    addToCart() {
+      // 获取购物车展示信息.
+      let product = {}
+      product.iid = this.iid
+      product.title = this.goods.title
+      product.image = this.topImages[0]
+      product.desc = this.goods.desc
+      product.price = this.goods.realPrice
+      this.addCart(product).then((res) => {
+        this.$toast.show(res)
+        // 只调用isShow完成此功能.使用插件进行此功能的开发.
+        // this.$isShow(res,duration)
+      })
+      // setTimeout(() => {
+      //   this.isShow = false
+      //   this.message = ''
+      // },1000)
+    }
   },
-  mixins: [imageLoadMixin],
+  mixins: [imageLoadMixin, backTopMixin],
   components: {
     DetailNav,
     Swiper,
@@ -159,7 +185,7 @@ export default {
     GoodsParams,
     DetailCommentInfo,
     GoodsList,
-    DetailBottomBar
+    DetailBottomBar,
   },
   filters: {},
 };
